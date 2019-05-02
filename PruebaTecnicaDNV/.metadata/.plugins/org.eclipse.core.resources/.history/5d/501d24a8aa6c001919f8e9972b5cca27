@@ -1,0 +1,14 @@
+/*
+ * David Nieto Velasco
+ * 02-may-2019
+ */
+package com.david.pruebaimatia.service;
+
+import java.awt.List;
+
+public interface TaskService {
+	
+	// Obtengo el listado de todas las tareas
+	public abstract List<Ta> listAllTasks()
+
+}

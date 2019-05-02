@@ -1,0 +1,26 @@
+package com.david.pruebaimatia.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.david.pruebaimatia.model.Task;
+
+
+//indicamos a Spring que se trata de un bean en este caso @Controller
+@Controller
+@RequestMapping("/")
+public class TaskController {
+	
+	// Declaro una constante para la vista
+	public static final String EXAMPLE_VIEW = "showtasks";
+	
+	@GetMapping("/")
+	public ModelAndView example() {
+		ModelAndView mav = new ModelAndView(EXAMPLE_VIEW);
+		mav.addObject("task", new Task (1, "primera tarea", false));
+		return mav;
+	}
+
+}

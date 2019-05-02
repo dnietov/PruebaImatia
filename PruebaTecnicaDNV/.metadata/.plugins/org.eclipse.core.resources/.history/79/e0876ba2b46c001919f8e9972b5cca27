@@ -1,0 +1,8 @@
+package com.david.pruebaimatia.converter;
+
+import org.springframework.stereotype.Component;
+
+@Component("taskConverter")
+public class TaskConverter {
+
+}

@@ -1,0 +1,39 @@
+/*
+ * David Nieto Velasco
+ * 02-may-2019
+ */
+package com.david.pruebaimatia.model;
+
+/**
+ * Creo un modelo para poder convertir la entidad y poder trabajar en el
+ * formulario solamente con los campos que me intersan
+ */
+public class TaskModel {
+
+	private String name;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public TaskModel(String name) {
+		super();
+		this.name = name;
+	}
+
+	public TaskModel() {
+
+	}
+
+	@Override
+	public String toString() {
+		return "TaskModel [name=" + name + "]";
+	}
+	
+	
+
+}

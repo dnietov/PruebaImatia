@@ -1,0 +1,26 @@
+/*
+ * David Nieto Velasco
+ * 02-may-2019
+ */
+package com.david.pruebaimatia.service;
+
+import java.util.List;
+
+import com.david.pruebaimatia.entity.Task;
+import com.david.pruebaimatia.model.TaskModel;
+
+/**
+ * The Interface TaskService.
+ */
+public interface TaskService {
+	
+	//método para obtener listado de tareas
+	public abstract List<Task> listAllTasks();
+	
+	//método para añadir un tarea, devuelve un modelo
+	public abstract Task addTask (TaskModel taskModel);
+	
+	//método para eliminar una tarea
+	public abstract int removeTask (int id);
+
+}

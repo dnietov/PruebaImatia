@@ -1,0 +1,93 @@
+/*
+ * David Nieto Velasco
+ * 01-may-2019
+ * 
+ */
+package com.david.pruebaimatia.model;
+
+
+/**
+ * Creo la clase que va a representar el objeto con sus campos.
+ */
+public class Task {
+	
+	
+	private int id;
+	private String name;
+	private boolean isdone = false;
+	
+	/**
+	 * Genero el constructor por defecto, para inicializar los datos a null
+	 *
+	 */
+	public Task() {
+		
+	}
+	
+	
+	/**
+	 * Genero el constructor
+	 *
+	 * @param id the id
+	 * @param name the name
+	 * @param isdone the is done
+	 */
+	public Task(int id, String name, boolean isdone) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.isdone = isdone;
+	}
+	
+	/**
+	 * Genero getters y setters
+	 * 
+	 */
+	public int getId() {
+		return id;
+	}
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+	public boolean isIsdone() {
+		return isdone;
+	}
+
+
+	public void setIs_done(boolean isdone) {
+		this.isdone = isdone;
+	}
+	
+	/**
+	 * toString
+	 */
+
+	@Override
+	public String toString() {
+		return "Task [id=" + id + ", name=" + name + ", isdone=" + isdone + "]";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+}

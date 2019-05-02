@@ -1,0 +1,28 @@
+package com.david.pruebaimatia.service.impl;
+
+import java.util.List;
+
+import com.david.pruebaimatia.entity.Task;
+import com.david.pruebaimatia.service.TaskService;
+
+public class TaskServiceImpl implements TaskService {
+
+	@Override
+	public List<Task> listAllTasks() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Task addTask(Task task) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int removeTask(int id) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+}

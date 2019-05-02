@@ -1,0 +1,15 @@
+/*
+ * David Nieto Velasco
+ * 02-may-2019
+ */
+package com.david.pruebaimatia.converter;
+
+import org.springframework.stereotype.Component;
+
+/**
+ * The Class TaskConverter.
+ */
+@Component("taskConverter")
+public class TaskConverter {
+
+}

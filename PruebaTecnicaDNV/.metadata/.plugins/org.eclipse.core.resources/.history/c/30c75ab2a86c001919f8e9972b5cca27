@@ -1,0 +1,5 @@
+package com.david.pruebaimatia.repositrory;
+
+public interface TaskRepository {
+
+}

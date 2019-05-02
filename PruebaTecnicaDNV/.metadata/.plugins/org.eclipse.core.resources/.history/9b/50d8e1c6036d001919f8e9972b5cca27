@@ -1,0 +1,47 @@
+/*
+ * David Nieto Velasco
+ * 02-may-2019
+ */
+package com.david.pruebaimatia.service.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+
+import com.david.pruebaimatia.entity.Task;
+import com.david.pruebaimatia.model.TaskModel;
+import com.david.pruebaimatia.repositrory.TaskRepository;
+import com.david.pruebaimatia.service.TaskService;
+
+@Service("taskServiceImpl")
+public class TaskServiceImpl implements TaskService {
+
+	/**
+	 * creo instancia de TaskRespository mediante autowired
+	 *
+	 */
+	@Autowired
+	@Qualifier("taskRepository")
+	private TaskRepository taskRepo;
+	
+	@Override
+	public List<TaskModel> listAllTasks() {
+		return taskRepo.findAll();
+	}
+
+	
+	@Override
+	public TaskModel addTask(TaskModel taskModel) {
+		return taskRepo.save(taskModel);
+	}
+
+	
+	@Override
+	public int removeTask(int id) {
+		taskRepo.deleteById(id);
+		return 0;
+	}
+
+}

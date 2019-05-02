@@ -1,0 +1,61 @@
+/*
+ * David Nieto Velasco
+ * 02-may-2019
+ */
+package com.david.pruebaimatia.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.david.pruebaimatia.constant.ViewConstant;
+import com.david.pruebaimatia.entity.Task;
+import com.david.pruebaimatia.service.TaskService;
+
+/**
+ * anotación controller.
+ */
+@Controller
+@RequestMapping("/")
+public class TaskController {
+
+	
+
+	/**
+	 * creo instancia del servicio mediante autowired
+	 *
+	 */
+
+	@Autowired
+	@Qualifier("taskServiceImpl")
+	private TaskService taskService;
+
+	/**
+	 * End point para mostrar la lista de tareas
+	 */
+
+	@GetMapping("/tasks")
+	public ModelAndView listAllTasks() {
+		ModelAndView mav = new ModelAndView();
+		// creo modelo vacio para thymeleaf pueda trabajar en el formulario
+		mav.addObject("task", new Task());
+		mav.addObject("tasks", taskService.listAllTasks());
+		mav.setViewName(ViewConstant.TASKS_VIEW);
+		return mav;
+	}
+
+	/**
+	 * End point para añadir tarea
+	 */
+	@PostMapping("/addtasks")
+	public String addTask(@ModelAttribute("task") Task task) {
+		taskService.addTask(task);
+		return "redirect:/tasks/addtasks";
+	}
+
+}

@@ -1,0 +1,66 @@
+/*
+ * David Nieto Velasco
+ * 02-may-2019
+ */
+package com.david.pruebaimatia.controller;
+
+import org.apache.catalina.filters.AddDefaultCharsetFilter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.jmx.export.annotation.ManagedAttribute;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.david.pruebaimatia.entity.Task;
+import com.david.pruebaimatia.service.TaskService;
+
+
+
+
+/**
+ * anotación controller.
+ */
+@Controller
+@RequestMapping("/")
+public class TaskController {
+	
+	/** Declaro una constante para la vista. */
+	public static final String TASKS_VIEW = "showtasks";
+	
+	/**
+	 * creo instancia del servicio mediante autowired
+	 *
+	 */
+	
+	@Autowired
+	@Qualifier("taskServiceImpl")
+	private TaskService taskService;
+	
+	/**
+	 * End point para mostrar la lista de tareas
+	 */
+	
+	@GetMapping("/")
+	public ModelAndView listAllTasks() {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("tasks", taskService.listAllTasks());
+		mav.setViewName(TASKS_VIEW);
+		return mav;
+	}
+	
+	/**
+	 * End point para añadir curso
+	 */
+	@PostMapping("/addtask")
+	public String addTask(@ModelAttribute("task") Task task) {
+	taskService.addTask(task);
+	return "redirect:/";
+	}
+	
+	
+
+}

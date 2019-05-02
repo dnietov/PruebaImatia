@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+<title>Gestor de tareas</title>
+
+				<!-- Bootstrap core CSS -->
+				
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    
+    			<!-- Custom styles for this template -->
+    			
+    <link href="#" th:href="@{/css/style.css}" rel="stylesheet" />
+    
+</head>
+
+<body>
+	
+	<div class="container">
+		<div class="panel panel-default">
+		
+			<div class="panel-heading"><h1>GESTOR DE TAREAS</h1></div>
+			<form action="#" th:action="@{/tasks/addtasks}" th:object="${task}" method="post">
+				<p><input class="form-control"  placeholder="Nueva tarea" type="text" th:field="*{name}"/>
+							<a href="#" th:href="@{/tasks/addtasks}">
+							<button type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+							</a>
+				</p>
+				
+			</form>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Listado de tareas</th>
+						<th>Borrar tarea</th>
+						
+						
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="task : ${tasks}">
+						<td th:text="${task.name}"></td>
+						<td>
+						<a href="#" >
+							<button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+							</a>
+						</td>
+					</tr>
+							
+					
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

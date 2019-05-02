@@ -1,0 +1,13 @@
+/*
+ * David Nieto Velasco
+ * 02-may-2019
+ */
+package com.david.pruebaimatia.model;
+
+/**
+ * Creo un modelo para poder convertir la entidad y poder trabajar en el formulario
+ * solamente con los campos que me intersan
+ */
+public class TaskModel {
+
+}

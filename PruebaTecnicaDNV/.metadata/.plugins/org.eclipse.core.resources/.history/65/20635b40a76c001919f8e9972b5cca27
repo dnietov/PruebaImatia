@@ -1,0 +1,41 @@
+/*
+ * David Nieto Velasco
+ * 02-may-2019
+ */
+package com.david.pruebaimatia.entity;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+/**
+ * anotación entity e indico a qué tabla se corresponde
+ */
+
+@Entity
+@Table(name="task")
+public class Task {
+	
+	private int id;
+	private String name;
+	private boolean isdone = false;
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public boolean isIsdone() {
+		return isdone;
+	}
+	public void setIsdone(boolean isdone) {
+		this.isdone = isdone;
+	}
+	
+
+}

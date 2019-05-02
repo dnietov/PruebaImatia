@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+<title>Gestor de tareas</title>
+
+				<!-- Bootstrap core CSS -->
+				
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    
+    			<!-- Custom styles for this template -->
+    			
+    <link href="#" th:href="@{/css/style.css}" rel="stylesheet" />
+    
+</head>
+
+<body>
+	
+	<div class="container">
+		<div class="panel panel-default">
+			<div class="panel-heading"></div>
+			<form action="#" th:action="@{/tasks/addtasks}" th:object="${task}" method="post">
+				<p> Nueva Tarea: <input type="text" th:field="*{name}"/></p>
+				<p><input type= "submit" value="Añadir tarea"/></p>
+			</form>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Listado de tareas</th>
+						
+						
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="task : ${tasks}">
+						<td th:text="${task.name}"></td>
+					</tr>
+							
+					
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

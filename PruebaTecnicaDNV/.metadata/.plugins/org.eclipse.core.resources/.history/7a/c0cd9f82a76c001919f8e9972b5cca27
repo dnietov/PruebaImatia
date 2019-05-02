@@ -1,0 +1,64 @@
+/*
+ * David Nieto Velasco
+ * 02-may-2019
+ */
+package com.david.pruebaimatia.entity;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+/**
+ * anotación entity e indico a qué tabla se corresponde
+ */
+
+@Entity
+@Table(name = "task")
+public class Task {
+
+	private int id;
+	private String name;
+	private boolean isdone = false;
+
+	/**
+	 * al generar un constructor personalizado tenemos que generar un constructor
+	 * vacío porque es el que va a utilizar spring por defecto
+	 */
+	public Task() {
+
+	}
+
+	/**
+	 * genero constructor para después utilizar un convertidor y generar un modelo
+	 */
+	public Task(int id, String name, boolean isdone) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.isdone = isdone;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public boolean isIsdone() {
+		return isdone;
+	}
+
+	public void setIsdone(boolean isdone) {
+		this.isdone = isdone;
+	}
+
+}
