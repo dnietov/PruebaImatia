@@ -1,0 +1,311 @@
+<!------------------[US05][TS02] - Vista para añadir Grupos 
+  					@author: David Nieto Velasco
+ 					@version: 07/03/2019 --------------->
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+<meta charset="UTF-8" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="#"
+	th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css}">
+<link rel="stylesheet" href="#"
+	th:href="@{https://use.fontawesome.com/releases/v5.6.3/css/all.css}">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-2.0.2.js"></script>
+<link rel="STYLESHEET" type="text/css" th:href="@{/css/pageformat.css}">
+<link rel="STYLESHEET" type="text/css" th:href="@{/css/groupCss.css}">
+<link rel="STYLESHEET" type="text/css" th:href="@{/css/modal.css}">
+<title>Atos</title>
+</head>
+
+<body>
+	<div class="wrapper">
+
+		<div th:replace="~{fragments/header :: headerGroup}">Header</div>
+		<br>
+
+		<div class="row">
+			<div class="col col-md"></div>
+			<div class="col-10 col-md-6">
+
+			<form method="POST" action="#"
+									th:action="@{'/group/addgroup/' + ${group.id} }"
+									th:object="${group}">
+				<br><br><br>
+				<h1 style="text-align: center;" th:if="${group.id==0}">Crear nuevo Grupo</h1>
+				<h1 style="text-align: center;" th:if="${group.id>0}">Modificar Grupo</h1>
+
+				<hr>
+				<a class="btn btn-outline-primary float-md-right"
+					th:href="@{/group/showgroups}"> Volver</a>
+				<div class="card text-center" style="border: none">
+
+					<ul class="nav nav-tabs" id="myTab" role="tablist"
+						style="border: none">
+
+					</ul>
+
+
+					<div class="tab-content" id="myTabContent">
+
+						<div class="tab-pane fade show active" id="home" role="tabpanel"
+							aria-labelledby="home-tab">
+
+							<div class="card-body">
+								
+
+
+									<input type="hidden" th:field="*{id}" th:value="${id}"></input>
+
+									<div class="form-group ">
+
+										<strong><label for="name" style="float: left">Nombre</label></strong>
+										<input th:field="*{name}" th:value="${name}" id="groupname"
+											maxlength="70" class="form-control" style="width: 100%;" />
+									</div>
+									<div class="form-group">
+
+										<strong><label for="description" style="float: left">Descripción</label></strong>
+										<textarea rows="4" cols="70" class="form-control"
+											th:field="*{description}" th:value="${description}">Descripcion</textarea>
+									</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="col col-md"></div>
+																						 
+		<!-- [US05][TS06] David Nieto 21/03/19
+		listado de usuarios que no están en el grupo -->
+		<br>
+		<div class="container-fluid">
+			<h2 style="text-align: center;">Asignación de usuarios</h2>
+			<hr>
+			<br>
+			<div class="row row2">
+				<div class="col-md-6">
+					<ul class="list-group">
+						<li class='list-group-item active'>Añade usuarios</li>
+						<li class='list-group-item d-flex justify-content-center'>
+							<div class="custom control custom-checkbox mb-3 "
+								style="font-size: 80%;">
+								<input hidden="true" type="checkbox"
+									class="allCheckBox checkbox_add" data-for="pill\[" id="all" />
+							</div> <label class="custom-control-label col-lg-0" for="all"></label>
+							<label class="col-lg-5 "><b>Dasid</b></label> <label
+							class="col-lg-5"><b>Nombre</b></label>
+
+						</li>
+
+
+						<li class='list-group-item' style="font-size: 90%; height: 50px;"
+							th:each="u : ${usersnotingroup}">
+							<div class="custom-control custom-checkbox mb-3"
+								style="float: left;">
+
+								<!-- 	Recordar--- cambiar el th:id cuando cree más listGroup -->
+
+								<input type="checkbox" class="custom-control-input checkbox_add"
+									th:name="pill[1]" th:value="${u.id}" th:id="${u.id}"
+									id="checkbox" /> <label class="custom-control-label "
+									th:for="${u.id}"></label>
+							</div> <label class="col-lg-5 textCrop2" th:text="${u.dasid}"></label>
+							<label class="col-lg-5 textCrop2"
+							th:text="${u.name }+'&nbsp'+ ${u.lastname1}+'&nbsp'+${u.lastname2}"></label>
+
+						</li>
+					</ul>
+				</div>
+
+				<!-- [US05][TS06] David Nieto 21/03/19
+				listado de usuarios que están en el grupo -->
+
+			<div class="col-md-6" th:if="${group.id>0}">
+				<ul class="list-group">
+					<li class='list-group-item active' >Elimina usuarios
+					</li>
+					<li class='list-group-item d-flex justify-content-center' >
+						<div class="custom control custom-checkbox mb-3 " style="font-size:80%;">
+							<input  hidden="true" type="checkbox" class="allCheckBox checkbox_add"
+								data-for="pil\[" id="all1" />
+						</div> <label class="custom-control-label col-lg-0" for="all1"></label>
+						<label class="col-lg-5"><b>Dasid</b></label> 
+						<label class="col-lg-5"><b>Nombre</b></label> 
+						
+					</li>
+
+
+					<li class='list-group-item' style="font-size:90%; height:50px;" th:each="u : ${useringroup}">
+						<div  class="custom-control custom-checkbox mb-3"
+							style="float: left;">
+							<input type="checkbox" class="custom-control-input checkbox_add "
+								th:name="pil[1]" th:value="${u.id}" th:id="'user'+${u.id}"
+								id="checkbox" /> <label class="custom-control-label"
+								th:for="'user'+${u.id}"></label>
+						</div> 
+						<label  class="col-lg-5 textCrop2" th:text="${u.dasid}"></label> 
+						<label  class="col-lg-5 textCrop2" th:text="${u.name }+'&nbsp'+ ${u.lastname1}+'&nbsp'+${u.lastname2}" ></label> 
+					</li>
+				</ul>
+			</div>
+		</div>
+		</div>
+		
+		
+			<!-- 
+									[US05][TS07] David Nieto 02/04/19
+									listado de tareas que no están en el grupo
+																						 -->
+
+
+
+	<div class="container-fluid" >
+	<h2 style="text-align: center;">Asignación de tareas </h2>
+	<hr>
+	
+		<div class="row row2" >
+			<div class="col-md-6">
+				<ul class="list-group" >
+					<li class='list-group-item active'>Añade tareas 
+					</li>
+					<li class='list-group-item d-flex justify-content-center' >
+						<div class="custom control custom-checkbox mb-3 " style="font-size:80%; ">
+							<input hidden="true" type="checkbox" class="allCheckBox checkbox_add"
+								data-for="coll\[" id="all2" />
+						</div> 
+						<label class="custom-control-label col-lg-0" for="all2"></label> 
+						<label class="col-lg-5 " ><b>Tarea</b></label> 
+					</li>
+
+
+					<li class='list-group-item' style="font-size:90%; height:50px;" th:each="t : ${tasksnotingroup}">
+						<div class="custom-control custom-checkbox mb-3"
+							style="float: left;">
+							
+						<!-- 	Recordar--- cambiar el th:id y el th:for cuando cree más listGroup -->
+							
+							<input type="checkbox" class="custom-control-input checkbox_add"
+								th:name="coll[1]" th:value="${t.id}" th:id="'task'+${t.id}"
+								id="checkbox" /> <label class="custom-control-label "
+								th:for="'task'+${t.id}"></label>
+						</div> 
+						<label class="col-lg-5 textCrop2" th:text="${t.name}"></label> 
+						 
+						
+					</li>
+				</ul>
+			</div>
+
+			<!-- 
+									[US05][TS07] David Nieto 02/04/19
+									listado de tareas que están en el grupo
+																						 -->
+
+
+
+			<div class="col-md-6" th:if="${group.id>0}">
+				<ul class="list-group">
+					<li class='list-group-item active' >Elimina tareas
+					</li>
+					<li class='list-group-item d-flex justify-content-center' >
+						<div class="custom control custom-checkbox mb-3 " style="font-size:80%;">
+							<input  hidden="true" type="checkbox" class="allCheckBox checkbox_add"
+								data-for="col\[" id="all3" />
+						</div> <label class="custom-control-label col-lg-0" for="all3"></label>
+						<label class="col-lg-5"><b>Tarea</b></label> 
+						
+					</li>
+
+
+					<li class='list-group-item' style="font-size:90%; height:50px;" th:each="t : ${tasksingroup}">
+						<div  class="custom-control custom-checkbox mb-3"
+							style="float: left;">
+							<input type="checkbox" class="custom-control-input checkbox_add "
+								th:name="col[1]" th:value="${t.id}" th:id="'task'+${t.id}"
+								id="checkbox" /> <label class="custom-control-label"
+								th:for="'task'+${t.id}"></label>
+						</div> 
+						<label  class="col-lg-5 textCrop2" th:text="${t.name}"></label>  
+					</li>
+				</ul>
+			</div>
+
+			</div>
+			<br>
+			<br>
+			<div class="buttons">
+				<button type="submit" class="btn btn-outline-success float-left">Guardar</button>
+				<a th:href="@{/group/showgroups}">
+					<button type="button" class="btn btn-outline-danger float-right">Cancelar</button>
+				</a>
+			</div>
+			<br>
+			</form>
+	</div>
+
+
+
+
+
+
+
+	<script type='text/javascript'>
+		!function($) {
+			$('.allCheckBox').click(
+					function() {
+						var cb = $(this), name = cb.attr('data-for');
+
+						if (name == null)
+							return false;
+						$('input[type=checkbox][name^=' + name + ']').prop(
+								'checked', cb.prop('checked')).click(
+								function() {
+									if (!$(this).prop('checked'))
+										cb.prop('checked', false);
+								});
+					});
+		}(jQuery);
+
+		$(".checkbox_add").on('change', function() {
+			if ($(this).is(':checked')) {
+				// Hacer algo si el checkbox ha sido seleccionado
+				// alert("El checkbox con valor " + $(this).val() + " ha sido seleccionado");
+				$(".button_add").prop("disabled", false);
+			} else {
+				// Hacer algo si el checkbox ha sido deseleccionado
+				// alert("El checkbox con valor " + $(this).val() + " ha sido deseleccionado");
+				$(".button_add").attr("disabled", true);
+			}
+		});
+
+		$(".checkbox_del").on('change', function() {
+			if ($(this).is(':checked')) {
+				// Hacer algo si el checkbox ha sido seleccionado
+				// alert("El checkbox con valor " + $(this).val() + " ha sido seleccionado");
+				$(".button_del").prop("disabled", false);
+			} else {
+				// Hacer algo si el checkbox ha sido deseleccionado
+				// alert("El checkbox con valor " + $(this).val() + " ha sido deseleccionado");
+				$(".button_del").attr("disabled", true);
+			}
+		});
+	</script>
+</body>
+</html>

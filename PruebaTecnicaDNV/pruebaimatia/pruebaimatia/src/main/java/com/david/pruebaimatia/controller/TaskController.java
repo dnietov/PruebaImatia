@@ -19,6 +19,7 @@ import com.david.pruebaimatia.constant.ViewConstant;
 import com.david.pruebaimatia.entity.Task;
 import com.david.pruebaimatia.model.TaskModel;
 import com.david.pruebaimatia.service.TaskService;
+import com.david.pruebaimatia.utils.Status;
 
 /**
  * anotación controller.
@@ -26,8 +27,6 @@ import com.david.pruebaimatia.service.TaskService;
 @Controller
 @RequestMapping("/index")
 public class TaskController {
-
-	
 
 	/**
 	 * creo instancia del servicio mediante autowired
@@ -41,7 +40,6 @@ public class TaskController {
 	/**
 	 * End point para mostrar la lista de tareas
 	 */
-
 	@GetMapping("/showtasks")
 	public ModelAndView showTasks() {
 		ModelAndView mav = new ModelAndView();
@@ -56,18 +54,28 @@ public class TaskController {
 	 * End point para añadir tarea
 	 */
 	@PostMapping("/addtasks")
-	public String addTask(@ModelAttribute("taskModel") TaskModel taskModel) {
-		//model.addAttribute("result", 1);
-		taskService.addTask(taskModel);
+	public String addTask(@ModelAttribute("taskModel") TaskModel taskModel, Model model) {
+
+		taskService.addTask(taskModel); 
 		
+
 		return "redirect:/index/showtasks";
 	}
-	
+
 	@GetMapping("/removetask")
-	public ModelAndView removeTask(@RequestParam(name="id", required = true) int id) {
+	public ModelAndView removeTask(@RequestParam(name = "id", required = true) int id) {
 		taskService.removeTask(id);
-	
-	return showTasks();
+
+		return showTasks();
+	}
+
+	@GetMapping("/donetask")
+	public String donetask(@RequestParam(name = "id", required = true) int id) {
+		Task task = taskService.findTaskById(id);
+		taskService.changeStatus(id);
+		taskService.update(task);
+
+		return "redirect:/index/showtasks";
 	}
 
 }

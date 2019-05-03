@@ -12,6 +12,7 @@ public class TaskModel {
 
 	private int id;
 	private String name;
+	private int status;
 
 	public int getId() {
 		return id;
@@ -28,11 +29,22 @@ public class TaskModel {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	
 
-	public TaskModel(int id, String name) {
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public TaskModel(int id, String name, int status) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.status = status;
 	}
 
 	public TaskModel() {

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Gestor de tareas</title>
+
+<!-- Bootstrap core CSS -->
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+<!-- Custom styles for this template -->
+
+<link href="#" th:href="@{/css/style.css}" rel="stylesheet" />
+
+</head>
+
+<body>
+
+	<div class="container " >
+		<div class="panel panel-default">
+
+			<div class="panel-heading">
+				<h1>GESTOR DE TAREAS</h1>
+			</div>
+			<form action="#" th:action="@{/index/addtasks}"
+				th:object="${taskModel}" method="post">
+				
+				
+				<form class="form-inline">
+				<input class="form-control" placeholder="Nueva tarea" type="text" required maxlength="50"
+					th:field="*{name}" th:value="${name}" width="" /></input>
+
+				<button type="submit" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Añadir tarea">
+					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+				</button>
+				</form>
+
+			
+
+			</form>
+			<table class="table">
+				<thead>
+					<tr>
+						<th></th>
+						<th>Listado de tareas</th>
+						<th></th>
+
+
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="task : ${tasks}">
+						<td><a href="#"
+							th:href="@{/index/donetask?id=__${task.id}__}">
+								<button th:if="${task.status==0}" type="button"
+									class="btn btn-outline-primary" data-toggle="tooltip" data-placement="bottom" title="Marcar como realizado">
+									<span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>
+								</button>
+								<button th:if="${task.status==1}" type="button"
+									class="btn btn-outline-primary" data-toggle="tooltip" data-placement="bottom" title="Marcar como incompleto">
+									<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+								</button>
+						</a></td>
+						<td>
+						<div th:if="${task.status==1}"> <strike th:text="${task.name}"/></div>
+						<div th:if="${task.status==0}" th:text="${task.name}"></div>
+						</td>
+						<td><a href="#"
+							th:href="@{/index/removetask?id=__${task.id}__}">
+								<button type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Eliminar tarea">
+									<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+								</button>
+						</a></td>
+					</tr>
+
+
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

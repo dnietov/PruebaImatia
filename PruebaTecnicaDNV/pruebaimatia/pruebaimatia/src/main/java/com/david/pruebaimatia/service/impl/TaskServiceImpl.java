@@ -16,6 +16,7 @@ import com.david.pruebaimatia.entity.Task;
 import com.david.pruebaimatia.model.TaskModel;
 import com.david.pruebaimatia.repositrory.TaskRepository;
 import com.david.pruebaimatia.service.TaskService;
+import com.david.pruebaimatia.utils.Status;
 
 @Service("taskServiceImpl")
 public class TaskServiceImpl implements TaskService {
@@ -42,11 +43,14 @@ public class TaskServiceImpl implements TaskService {
 		return tasksModel;
 	}
 
-	
+	/**
+	 * implementación para añadir, 
+	 * trabajo con el modelo
+	 *
+	 */
 	@Override
 	public TaskModel addTask(TaskModel taskModel) {
 		Task task = taskRepo.save(taskConverter.taskmodel2task(taskModel));
-//		return taskRepo.save(task);
 		return taskConverter.task2taskmodel(task);
 	}
 
@@ -72,5 +76,38 @@ public class TaskServiceImpl implements TaskService {
 		
 		
 	}
+	
+	@Override
+	public void changeStatus(int id) {
+		Task task = findTaskById(id);
+		
+			if (task.getStatus() == 0) {
+			task.setStatus(Status.DONE.getId());
+		} else
+			task.setStatus(Status.PENDING.getId());
+			
+		
+		
+	}
+
+	/**
+	 * implementación para modificar cambios,  
+	 * en este caso para modificar estado
+	 *
+	 */
+	@Override
+	public void update(Task task) {
+		Task taskStatus = findTaskById(task.getId());
+		if (taskStatus != null) {
+			taskStatus.setId(task.getId());
+			taskStatus.setName(task.getName());
+			taskStatus.setStatus(task.getStatus());
+		}
+		
+		taskRepo.save(taskStatus);
+		
+	}
+
+	
 
 }

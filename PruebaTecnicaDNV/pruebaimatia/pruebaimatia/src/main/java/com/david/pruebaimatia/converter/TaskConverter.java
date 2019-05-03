@@ -21,7 +21,7 @@ public class TaskConverter {
 		TaskModel taskModel = new TaskModel();
 		taskModel.setName(task.getName());
 		taskModel.setId(task.getId());
-		
+		taskModel.setStatus(task.getStatus());
 		return taskModel;
 		
 	}
@@ -31,6 +31,7 @@ public class TaskConverter {
 		Task task = new Task();
 		task.setName(taskModel.getName());
 		task.setId(taskModel.getId());
+		task.setStatus(taskModel.getStatus());
 		return task;
 	
 		

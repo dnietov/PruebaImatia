@@ -27,11 +27,11 @@ public class Task {
 	@Column(name = "id")
 	private int id;
 
-	@Column(name = "name")
+	@Column(name = "name", length = 50, nullable = false)
 	private String name;
 
-//	@Column(name="isdone")
-//	private boolean isdone = false;
+	@Column(name="status")
+	private int status;
 
 	/**
 	 * al generar un constructor personalizado tenemos que generar un constructor
@@ -45,11 +45,11 @@ public class Task {
 	/**
 	 * genero constructor para después utilizar un convertidor y generar un modelo
 	 */
-	public Task(int id, String name) {
+	public Task(int id, String name, int status) {
 		super();
 		this.id = id;
 		this.name = name;
-//		this.isdone = isdone;
+		this.status = status;
 	}
 
 	public int getId() {
@@ -68,12 +68,14 @@ public class Task {
 		this.name = name;
 	}
 
-//	public boolean isIsdone() {
-//		return isdone;
-//	}
-//
-//	public void setIsdone(boolean isdone) {
-//		this.isdone = isdone;
-//	}
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+
 
 }

@@ -25,5 +25,9 @@ public interface TaskService {
 	public abstract Task findTaskById(int id);
 	
 	public abstract void removeTask (int id);
+	
+	public abstract void changeStatus (int id);
+	
+	public abstract  void update (Task task);
 
 }
