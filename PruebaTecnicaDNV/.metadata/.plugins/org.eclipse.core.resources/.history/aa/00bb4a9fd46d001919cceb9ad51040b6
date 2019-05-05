@@ -1,0 +1,90 @@
+/*
+ * David Nieto Velasco
+ * 02-may-2019
+ */
+package com.david.pruebaimatia.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.david.pruebaimatia.constant.ViewConstant;
+import com.david.pruebaimatia.entity.Task;
+import com.david.pruebaimatia.model.TaskModel;
+import com.david.pruebaimatia.service.TaskService;
+import com.david.pruebaimatia.utils.Status;
+
+/**
+ * anotación controller.
+ */
+@Controller
+@RequestMapping("/index")
+public class TaskController {
+
+	/**
+	 * creo instancia del servicio mediante autowired
+	 *
+	 */
+
+	@Autowired
+	@Qualifier("taskServiceImpl")
+	private TaskService taskService;
+	
+	@GetMapping()
+	public String redirectIndex() {
+		return "redirect:/index/showtasks";
+	}
+
+	/**
+	 * End point para mostrar la lista de tareas
+	 */
+	
+	@GetMapping("/showtasks")
+	public ModelAndView showTasks() {
+		ModelAndView mav = new ModelAndView();
+		// creo modelo vacio para thymeleaf pueda trabajar en el formulario
+		mav.addObject("taskModel", new TaskModel());
+		mav.addObject("tasks", taskService.listAllTasks());
+		mav.setViewName(ViewConstant.TASKS_VIEW);
+		return mav;
+	}
+
+	/**
+	 * End point para añadir tarea
+	 */
+	@PostMapping("/addtasks")
+	public String addTask(@ModelAttribute("taskModel") TaskModel taskModel, Model model) {
+		taskService.addTask(taskModel); 
+		return "redirect:/index/showtasks";
+	}
+
+	/**
+	 * End point para eliminar tarea pasamos por parámetro el id
+	 */
+	@GetMapping("/removetask")
+	public ModelAndView removeTask(@RequestParam(name = "id", required = true) int id) {
+		taskService.removeTask(id);
+
+		return showTasks();
+	}
+	
+	/**
+	 * End point modificar el estado de la tarea
+	 */
+	@GetMapping("/donetask")
+	public String donetask(@RequestParam(name = "id", required = true) int id) {
+		Task task = taskService.findTaskById(id);
+		taskService.changeStatus(id);
+		taskService.update(task);
+
+		return "redirect:/index/showtasks";
+	}
+
+}

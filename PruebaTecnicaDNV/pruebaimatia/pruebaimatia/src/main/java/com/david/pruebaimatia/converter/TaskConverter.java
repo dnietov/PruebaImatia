@@ -10,7 +10,7 @@ import com.david.pruebaimatia.entity.Task;
 import com.david.pruebaimatia.model.TaskModel;
 
 /**
- * The Class TaskConverter.
+ * Convertidor de entidad a modelo y viceversa
  */
 @Component("taskConverter")
 public class TaskConverter { 

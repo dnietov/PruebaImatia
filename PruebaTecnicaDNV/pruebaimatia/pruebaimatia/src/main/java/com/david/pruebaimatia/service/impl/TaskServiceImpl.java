@@ -33,6 +33,11 @@ public class TaskServiceImpl implements TaskService {
 	@Qualifier("taskConverter")
 	private TaskConverter taskConverter;
 	
+	/**
+	 * 
+	 * implementación para listar todas las tareas
+	 *
+	 */
 	@Override
 	public List<TaskModel> listAllTasks() {
 		List<Task> tasks = taskRepo.findAll();
@@ -44,8 +49,7 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	/**
-	 * implementación para añadir, 
-	 * trabajo con el modelo
+	 * implementación para añadir tareas
 	 *
 	 */
 	@Override
@@ -73,10 +77,12 @@ public class TaskServiceImpl implements TaskService {
 		if(task != null) {
 			taskRepo.delete(findTaskById(id));	
 		}
-		
-		
 	}
 	
+	/**
+	 * implementación para cambiar de estado
+	 *
+	 */
 	@Override
 	public void changeStatus(int id) {
 		Task task = findTaskById(id);
@@ -85,13 +91,10 @@ public class TaskServiceImpl implements TaskService {
 			task.setStatus(Status.DONE.getId());
 		} else
 			task.setStatus(Status.PENDING.getId());
-			
-		
-		
 	}
 
 	/**
-	 * implementación para modificar cambios,  
+	 * implementación para realizar modificaciones,  
 	 * en este caso para modificar estado
 	 *
 	 */

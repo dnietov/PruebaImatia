@@ -24,7 +24,7 @@ public class Task {
 	 */
 	@Id
 	@GeneratedValue
-	@Column(name = "id")
+	@Column(name = "id", unique= true)
 	private int id;
 
 	@Column(name = "name", length = 50, nullable = false)

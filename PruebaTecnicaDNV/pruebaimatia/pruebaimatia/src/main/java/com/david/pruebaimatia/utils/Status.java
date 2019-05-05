@@ -6,7 +6,7 @@ package com.david.pruebaimatia.utils;
 
 import com.david.pruebaimatia.utils.Status;
 
-/** Creo clase con dos estados para poder cambiarlo si se marca la opción de realizado
+/** Creo clase con dos estados para poder cambiarlo si se marca la opción de realizado y viceversa
  * 
  * 0 --> tarea incompleta
  * 1 --> tarea realizada
@@ -17,7 +17,7 @@ public enum Status {
 	
 	PENDING(0), DONE(1);
 
-	/** The id. */
+	
 	private int id;
 
 	
@@ -36,8 +36,4 @@ public enum Status {
 	}
 
 	
-	public static Status[] getAll() {
-		return Status.values();
-	}
-
 }

@@ -21,13 +21,14 @@ public interface TaskService {
 	public abstract TaskModel addTask(TaskModel taskModel);
 	
 	//método para eliminar una tarea
-	
 	public abstract Task findTaskById(int id);
 	
 	public abstract void removeTask (int id);
 	
+	//método para cambiar el estado de la tarea
 	public abstract void changeStatus (int id);
 	
+	//método para modificar una tarea
 	public abstract  void update (Task task);
 
 }

@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
 /**
- * Clase que utiliza Spring Boot para arrancar
+ * Clase que utiliza Spring Boot para arrancar la aplicación
  */
 @SpringBootApplication
 public class PruebaimatiaApplication {
